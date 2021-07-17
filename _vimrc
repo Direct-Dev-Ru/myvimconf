@@ -1,3 +1,30 @@
+filetype off
+set t_Co=256
+set shellslash
+set rtp+=~/vimfiles/bundle/Vundle.vim
+
+call vundle#begin('~/vimfiles/bundle')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'preservim/nerdtree'
+
+call vundle#end()            " required
+
+filetype plugin indent on    " required
+
+
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 " An example for a vimrc file.
 "
@@ -58,8 +85,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set number
-set foldcolumn 2
-colorscheme delek
+colorscheme nirvana
 syntax on
 set noerrorbells
 set novisualbell
@@ -87,7 +113,38 @@ highlight lCursor guifg=NONE guibg=Cyan
 " Проба переназначения сочетаний клавиш
 :map anfc <ESC>i()=>{}<CR>
 
+" nmap <F6> :NERDTreeToggle<CR>
+
+" nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 
 noremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
+
+let NERDTreeQuitOnOpen=1
+
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+
+packadd! dracula
+syntax enable
+colorscheme dracula
+
+set guifont=consolas:h11:cRUSSIAN
