@@ -1,0 +1,1 @@
+copy _vimrc %USERPROFILE%\_vimrc
